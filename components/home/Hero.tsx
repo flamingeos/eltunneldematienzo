@@ -167,55 +167,163 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Glowing car silhouette */}
+        {/* Premium car silhouette */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-16 relative mx-auto max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.45 }}
+          className="mt-14 relative mx-auto max-w-3xl"
         >
           <div className="relative">
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#007BFF]/20 blur-2xl rounded-full" />
-            <svg viewBox="0 0 800 300" className="w-full" fill="none">
-              {/* Stylized luxury car SVG */}
+            {/* Ground glow beneath car */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-4/5 h-6 bg-[#007BFF]/30 blur-3xl rounded-full" />
+            <svg viewBox="0 0 820 250" className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#007BFF" stopOpacity="0.6" />
-                  <stop offset="50%" stopColor="#00AFFF" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#007BFF" stopOpacity="0.6" />
+                <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#0047BB" stopOpacity="0.8" />
+                  <stop offset="35%" stopColor="#007BFF" stopOpacity="0.92" />
+                  <stop offset="65%" stopColor="#00AFFF" stopOpacity="0.88" />
+                  <stop offset="100%" stopColor="#004FCC" stopOpacity="0.75" />
                 </linearGradient>
+                <linearGradient id="glassGrad" x1="10%" y1="0%" x2="60%" y2="100%">
+                  <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#007BFF" stopOpacity="0.1" />
+                </linearGradient>
+                <radialGradient id="rimGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#1a2035" />
+                  <stop offset="100%" stopColor="#050505" />
+                </radialGradient>
                 <filter id="glow">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
+                  <feGaussianBlur stdDeviation="3.5" result="b" />
+                  <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+                <filter id="softGlow">
+                  <feGaussianBlur stdDeviation="2" result="b" />
+                  <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
                 </filter>
               </defs>
-              {/* Car body */}
+
+              {/* Ground reflections */}
+              <ellipse cx="410" cy="240" rx="370" ry="13" fill="#007BFF" opacity="0.12" />
+              <ellipse cx="410" cy="240" rx="240" ry="6" fill="#00AFFF" opacity="0.08" />
+
+              {/* ── Main car body ── */}
               <path
-                d="M100 200 L150 140 Q200 100 300 95 L500 95 Q600 100 650 140 L700 200 L100 200Z"
-                fill="url(#carGrad)"
+                d="M65,232 L65,214 Q70,196 90,188 L138,184
+                   Q158,176 174,162 Q186,148 206,133
+                   Q224,122 256,118 L378,116
+                   Q396,112 415,94 Q436,72 462,66
+                   L498,65 Q528,65 556,77
+                   Q574,90 590,112 Q600,130 607,150
+                   L628,160 L688,162
+                   Q710,163 730,167 L750,172
+                   Q766,180 778,196 L782,215 L782,232 Z"
+                fill="url(#bodyGrad)"
                 filter="url(#glow)"
-                opacity="0.8"
+                opacity="0.9"
               />
-              {/* Windshield */}
+
+              {/* ── Glasshouse / window area ── */}
               <path
-                d="M200 145 L250 110 L550 110 L600 145Z"
-                fill="#00AFFF"
-                opacity="0.3"
-                filter="url(#glow)"
+                d="M405,158 Q420,124 440,97
+                   Q458,70 492,66
+                   L555,78 Q573,90 588,113
+                   Q599,132 604,153
+                   L478,161 L405,158 Z"
+                fill="url(#glassGrad)"
               />
-              {/* Windows */}
-              <path d="M210 145 L255 118 L395 118 L395 145Z" fill="#00AFFF" opacity="0.4" />
-              <path d="M405 145 L405 118 L545 118 L590 145Z" fill="#00AFFF" opacity="0.4" />
-              {/* Wheels */}
-              <circle cx="220" cy="200" r="45" fill="#111" stroke="#007BFF" strokeWidth="3" filter="url(#glow)" />
-              <circle cx="220" cy="200" r="25" fill="#050505" stroke="#007BFF" strokeWidth="2" opacity="0.6" />
-              <circle cx="580" cy="200" r="45" fill="#111" stroke="#007BFF" strokeWidth="3" filter="url(#glow)" />
-              <circle cx="580" cy="200" r="25" fill="#050505" stroke="#007BFF" strokeWidth="2" opacity="0.6" />
-              {/* Ground reflection */}
-              <ellipse cx="400" cy="248" rx="320" ry="12" fill="#007BFF" opacity="0.15" />
+              {/* Window top edge highlight */}
+              <path
+                d="M407,157 Q422,122 441,96 Q459,69 492,65
+                   L555,77 Q572,89 587,111 Q598,130 603,151"
+                stroke="#00CFFF"
+                strokeWidth="1.5"
+                opacity="0.6"
+                fill="none"
+                filter="url(#softGlow)"
+              />
+              {/* B-pillar */}
+              <line x1="471" y1="66" x2="476" y2="161" stroke="#007BFF" strokeWidth="3" opacity="0.55" />
+              {/* Interior window glints */}
+              <path d="M424,148 Q438,120 452,96" stroke="#00AFFF" strokeWidth="1" opacity="0.2" fill="none" />
+              <path d="M510,66 Q514,100 515,158" stroke="#00AFFF" strokeWidth="1" opacity="0.15" fill="none" />
+
+              {/* ── Hood & roof shine ── */}
+              <path
+                d="M140,182 Q200,152 278,128 L378,124"
+                stroke="#00CFFF" strokeWidth="1.5" opacity="0.38" fill="none"
+              />
+              <path
+                d="M445,68 L494,66 Q524,66 550,77"
+                stroke="#00CFFF" strokeWidth="1.5" opacity="0.32" fill="none"
+              />
+
+              {/* ── Body crease / beltline ── */}
+              <path
+                d="M138,200 Q240,194 410,192 Q570,192 718,198"
+                stroke="#00CFFF" strokeWidth="1" opacity="0.28" fill="none"
+                filter="url(#softGlow)"
+              />
+
+              {/* ── Door gap line ── */}
+              <line x1="476" y1="161" x2="474" y2="228" stroke="#007BFF" strokeWidth="1" opacity="0.2" />
+
+              {/* ── Headlight — front LED strip ── */}
+              <rect x="66" y="200" width="9" height="22" rx="2" fill="#00AFFF" opacity="0.65" filter="url(#glow)" />
+              <rect x="67" y="202" width="7" height="3" rx="1" fill="white" opacity="1" />
+              <rect x="67" y="207" width="7" height="2.5" rx="1" fill="#007BFF" opacity="0.85" />
+              <rect x="67" y="212" width="7" height="3" rx="1" fill="#00AFFF" opacity="0.7" />
+              {/* DRL accent */}
+              <path d="M76,204 Q110,194 140,190" stroke="#00AFFF" strokeWidth="2" opacity="0.55" fill="none" filter="url(#softGlow)" />
+
+              {/* ── Taillight — rear LED strip ── */}
+              <rect x="746" y="196" width="9" height="24" rx="2" fill="#007BFF" opacity="0.85" filter="url(#glow)" />
+              <rect x="747" y="198" width="7" height="3" rx="1" fill="#00AFFF" opacity="1" />
+              <rect x="747" y="204" width="7" height="2.5" rx="1" fill="white" opacity="0.8" />
+              <rect x="747" y="209" width="7" height="3.5" rx="1" fill="#007BFF" opacity="0.9" />
+
+              {/* ── Exhaust hint ── */}
+              <rect x="764" y="226" width="16" height="5" rx="2.5" fill="#007BFF" opacity="0.35" filter="url(#softGlow)" />
+
+              {/* ── Wheel wells (dark cutout over body) ── */}
+              <circle cx="190" cy="237" r="52" fill="#050505" />
+              <circle cx="630" cy="237" r="52" fill="#050505" />
+
+              {/* ── Front wheel ── */}
+              <circle cx="190" cy="237" r="48" fill="#0b0b0b" stroke="#007BFF" strokeWidth="2.5" filter="url(#glow)" />
+              <circle cx="190" cy="237" r="34" fill="url(#rimGrad)" stroke="#007BFF" strokeWidth="1.5" opacity="0.9" />
+              {/* 6 spokes — front */}
+              <line x1="224" y1="237" x2="199" y2="237" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="207" y1="266" x2="195" y2="245" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="173" y1="266" x2="186" y2="245" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="156" y1="237" x2="181" y2="237" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="173" y1="208" x2="186" y2="229" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="207" y1="208" x2="195" y2="229" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              {/* Hub */}
+              <circle cx="190" cy="237" r="9" fill="#007BFF" opacity="0.92" filter="url(#softGlow)" />
+              <circle cx="190" cy="237" r="4.5" fill="#050505" />
+
+              {/* ── Rear wheel ── */}
+              <circle cx="630" cy="237" r="48" fill="#0b0b0b" stroke="#007BFF" strokeWidth="2.5" filter="url(#glow)" />
+              <circle cx="630" cy="237" r="34" fill="url(#rimGrad)" stroke="#007BFF" strokeWidth="1.5" opacity="0.9" />
+              {/* 6 spokes — rear */}
+              <line x1="664" y1="237" x2="639" y2="237" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="647" y1="266" x2="635" y2="245" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="613" y1="266" x2="626" y2="245" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="596" y1="237" x2="621" y2="237" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="613" y1="208" x2="626" y2="229" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              <line x1="647" y1="208" x2="635" y2="229" stroke="#007BFF" strokeWidth="3.5" opacity="0.88" filter="url(#softGlow)" />
+              {/* Hub */}
+              <circle cx="630" cy="237" r="9" fill="#007BFF" opacity="0.92" filter="url(#softGlow)" />
+              <circle cx="630" cy="237" r="4.5" fill="#050505" />
+
+              {/* ── Wheel arch highlights ── */}
+              <path d="M142,237 A48,48 0 0 1 238,237" stroke="#00AFFF" strokeWidth="2" opacity="0.45" fill="none" filter="url(#softGlow)" />
+              <path d="M582,237 A48,48 0 0 1 678,237" stroke="#00AFFF" strokeWidth="2" opacity="0.45" fill="none" filter="url(#softGlow)" />
+
+              {/* ── Wheel puddle reflections ── */}
+              <ellipse cx="190" cy="245" rx="50" ry="7" fill="#007BFF" opacity="0.1" />
+              <ellipse cx="630" cy="245" rx="50" ry="7" fill="#007BFF" opacity="0.1" />
             </svg>
           </div>
         </motion.div>
