@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 function getResend() {
+  if (!process.env.RESEND_API_KEY) return null;
   return new Resend(process.env.RESEND_API_KEY);
 }
 
@@ -12,7 +13,9 @@ export async function sendBookingConfirmation(data: {
   time: string;
   vehicleType: string;
 }) {
-  await getResend().emails.send({
+  const resend = getResend();
+  if (!resend) return;
+  await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
     to: data.email,
     subject: "✅ Booking Confirmed — El Túnel de Matienzo",
@@ -43,7 +46,9 @@ export async function sendAdminNotification(data: {
   time: string;
   vehicleType: string;
 }) {
-  await getResend().emails.send({
+  const resend = getResend();
+  if (!resend) return;
+  await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
     to: process.env.ADMIN_EMAIL!,
     subject: `📅 New Booking: ${data.name} — ${data.service}`,
