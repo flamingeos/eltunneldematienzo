@@ -1,0 +1,15 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { isAdminAuthenticated } from "@/lib/auth";
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const { id } = await params;
+  await prisma.galleryImage.delete({ where: { id } });
+  return NextResponse.json({ success: true });
+}
