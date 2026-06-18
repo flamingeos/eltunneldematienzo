@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 export async function sendBookingConfirmation(data: {
   name: string;
@@ -10,7 +12,7 @@ export async function sendBookingConfirmation(data: {
   time: string;
   vehicleType: string;
 }) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
     to: data.email,
     subject: "✅ Booking Confirmed — El Túnel de Matienzo",
@@ -41,7 +43,7 @@ export async function sendAdminNotification(data: {
   time: string;
   vehicleType: string;
 }) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
     to: process.env.ADMIN_EMAIL!,
     subject: `📅 New Booking: ${data.name} — ${data.service}`,
