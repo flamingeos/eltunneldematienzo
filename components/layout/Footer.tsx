@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Droplets, MapPin, Phone, Mail, Share2, Globe } from "lucide-react";
+import { Droplets, MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -23,16 +23,12 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               <a
-                href="#"
+                href="https://www.instagram.com/eltunneldematienzo/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-[#007BFF]/10 border border-[#007BFF]/20 flex items-center justify-center text-[#007BFF] hover:bg-[#007BFF]/20 transition-colors"
               >
-                <Share2 size={16} />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-[#007BFF]/10 border border-[#007BFF]/20 flex items-center justify-center text-[#007BFF] hover:bg-[#007BFF]/20 transition-colors"
-              >
-                <Globe size={16} />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               </a>
             </div>
           </div>
