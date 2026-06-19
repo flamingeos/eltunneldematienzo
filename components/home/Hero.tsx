@@ -123,21 +123,6 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-2xl mx-auto text-center"
-          style={{
-            background: "rgba(4, 6, 16, 0.52)",
-            backdropFilter: "blur(18px)",
-            WebkitBackdropFilter: "blur(18px)",
-            border: "1px solid rgba(0, 123, 255, 0.18)",
-            borderRadius: "24px",
-            boxShadow: `
-              0 0 0 1px rgba(0,123,255,0.06),
-              0 0 60px rgba(0,123,255,0.14),
-              0 0 120px rgba(0,80,200,0.08),
-              0 32px 80px rgba(0,0,0,0.55),
-              inset 0 1px 0 rgba(255,255,255,0.06)
-            `,
-            padding: "clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 5vw, 3rem)",
-          }}
         >
           {/* Badge */}
           <motion.div
@@ -166,8 +151,8 @@ export default function Hero() {
               <Image
                 src="/logo/el tunnel logo.png"
                 alt="El Túnel de Matienzo"
-                width={72}
-                height={72}
+                width={130}
+                height={130}
                 className="object-contain"
               />
             </div>
@@ -182,7 +167,7 @@ export default function Hero() {
             style={{
               fontSize: "clamp(1.9rem, 5.5vw, 3.8rem)",
               letterSpacing: "0.12em",
-              textShadow: "0 2px 32px rgba(0,0,0,0.8)",
+              textShadow: "0 0 40px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,1), 0 0 80px rgba(0,0,0,0.9)",
             }}
           >
             EL TÚNEL DE{" "}
@@ -216,7 +201,7 @@ export default function Hero() {
             style={{
               fontSize: "clamp(1rem, 2.2vw, 1.35rem)",
               letterSpacing: "0.02em",
-              textShadow: "0 1px 16px rgba(0,0,0,0.9)",
+              textShadow: "0 0 30px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1)",
             }}
           >
             La Experiencia Premium en
@@ -238,7 +223,7 @@ export default function Hero() {
             style={{
               fontSize: "clamp(0.85rem, 1.5vw, 0.975rem)",
               maxWidth: "480px",
-              textShadow: "0 1px 12px rgba(0,0,0,0.9)",
+              textShadow: "0 0 24px rgba(0,0,0,1), 0 2px 4px rgba(0,0,0,1)",
             }}
           >
             Lavado profesional, detailing, recubrimientos cerámicos, protección de
