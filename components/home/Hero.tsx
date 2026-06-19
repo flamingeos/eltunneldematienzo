@@ -158,7 +158,34 @@ export default function Hero() {
         >
           EL TUNNEL DE
           <br />
-          <span style={{ color: "#ffffff" }}>MATIENZO</span>
+          <style>{`
+            @keyframes matienzo-glow {
+              0%, 100% {
+                text-shadow:
+                  0 4px 20px rgba(0,0,0,1),
+                  0 2px 4px rgba(0,0,0,1),
+                  0 0 20px rgba(0,123,255,0.4),
+                  0 0 40px rgba(0,123,255,0.2);
+              }
+              50% {
+                text-shadow:
+                  0 4px 20px rgba(0,0,0,1),
+                  0 2px 4px rgba(0,0,0,1),
+                  0 0 40px rgba(0,150,255,0.9),
+                  0 0 80px rgba(0,123,255,0.6),
+                  0 0 120px rgba(0,100,255,0.3);
+              }
+            }
+          `}</style>
+          <span
+            style={{
+              color: "#ffffff",
+              WebkitTextStroke: "2px rgba(0,123,255,0.85)",
+              animation: "matienzo-glow 3s ease-in-out infinite",
+            }}
+          >
+            MATIENZO
+          </span>
         </motion.h1>
 
         {/* Accent rule */}
