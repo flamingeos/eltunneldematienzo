@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Star, Shield, Award } from "lucide-react";
+import { ChevronRight, Star } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 function Particles() {
@@ -160,38 +160,7 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-6 text-sm text-gray-500"
-        >
-          {[
-            { icon: <Shield size={16} />, label: "Garantía de Calidad" },
-            { icon: <Star size={16} />, label: "5 Estrellas Google" },
-            { icon: <Award size={16} />, label: "+500 Vehículos Detallados" },
-          ].map((badge) => (
-            <div key={badge.label} className="flex items-center gap-2 text-gray-400">
-              <span className="text-[#007BFF]">{badge.icon}</span>
-              {badge.label}
-            </div>
-          ))}
-        </motion.div>
-
-
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-600"
-      >
-        <div className="w-5 h-8 rounded-full border border-gray-700 flex items-start justify-center pt-1.5">
-          <div className="w-1 h-2 bg-[#007BFF] rounded-full" />
-        </div>
-      </motion.div>
     </section>
   );
 }
