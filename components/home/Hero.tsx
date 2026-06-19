@@ -2,97 +2,106 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Star } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+function Particles() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.play().catch(() => {});
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles: Array<{
+      x: number; y: number; r: number;
+      vx: number; vy: number; alpha: number;
+    }> = [];
+
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: Math.random() * 0.5 + 0.2,
+        alpha: Math.random() * 0.6 + 0.1,
+      });
+    }
+
+    let animId: number;
+    function draw() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 175, 255, ${p.alpha})`;
+        ctx.fill();
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y > canvas.height) {
+          p.y = -5;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      });
+      animId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 pointer-events-none"
+      style={{ zIndex: 1 }}
+    />
+  );
+}
 
-      {/* ── VIDEO LAYER ── */}
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transform: "translateZ(0)",
-            willChange: "transform",
-            backfaceVisibility: "hidden",
-          }}
-        >
-          <source
-            src="/loop image logo car/hf_20260619_055524_4c74f92d-3446-4548-b977-db2b3812a303.mp4"
-            type="video/mp4"
-          />
-        </video>
+export default function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#007BFF]/10 via-transparent to-[#050505]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#007BFF]/5 blur-3xl" />
 
-        {/* Cinematic dark vignette — heavier at top/bottom, lighter in center */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              linear-gradient(to bottom,
-                #050505 0%,
-                rgba(5,5,5,0.55) 18%,
-                rgba(5,5,5,0.15) 38%,
-                rgba(5,5,5,0.15) 62%,
-                rgba(5,5,5,0.65) 82%,
-                #050505 100%
-              )
-            `,
-          }}
-        />
-
-        {/* Side fades */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              linear-gradient(to right,
-                rgba(5,5,5,0.7) 0%,
-                transparent 18%,
-                transparent 82%,
-                rgba(5,5,5,0.7) 100%
-              )
-            `,
-          }}
+      {/* Subtle logo watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 2 }}>
+        <Image
+          src="/logo/el tunnel logo.png"
+          alt=""
+          width={420}
+          height={420}
+          className="object-contain opacity-[0.04]"
         />
       </div>
 
-      {/* ── BLUE AMBIENT GLOW ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 45% at 50% 55%, rgba(0,123,255,0.13) 0%, transparent 70%)",
-          zIndex: 1,
-        }}
-      />
+      <Particles />
 
-      {/* ── CONTENT ── */}
-      <div
-        className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-32"
-        style={{ zIndex: 2 }}
-      >
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#007BFF]/40 bg-[#050505]/60 backdrop-blur-sm text-[#00AFFF] text-sm font-medium mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#007BFF]/40 bg-[#007BFF]/10 text-[#00AFFF] text-sm font-medium mb-8"
         >
           <Star size={14} fill="currentColor" />
           Puerto Rico&apos;s #1 Auto Detailing
@@ -104,7 +113,6 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-[1.1]"
-          style={{ textShadow: "0 2px 40px rgba(0,0,0,0.8)" }}
         >
           Puerto Rico&apos;s Premium
           <br />
@@ -124,8 +132,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto mb-10"
-          style={{ textShadow: "0 1px 20px rgba(0,0,0,0.9)" }}
+          className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10"
         >
           Professional car wash, detailing, ceramic coatings, memberships,
           and paint protection — all in one luxury experience.
@@ -136,18 +143,18 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
           <Link
             href="/booking"
-            className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#007BFF] text-white font-bold rounded-xl text-lg hover:bg-[#0066dd] transition-all hover:shadow-[0_0_40px_rgba(0,123,255,0.7)] animate-pulse-glow"
+            className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#007BFF] text-white font-bold rounded-xl text-lg hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.6)] animate-pulse-glow"
           >
             Reservar Ahora
             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
             href="/services"
-            className="inline-flex items-center justify-center px-8 py-4 border border-[#007BFF]/40 bg-[#050505]/40 backdrop-blur-sm text-white font-semibold rounded-xl text-lg hover:border-[#007BFF] hover:bg-[#007BFF]/10 transition-all"
+            className="inline-flex items-center justify-center px-8 py-4 border border-[#007BFF]/40 text-white font-semibold rounded-xl text-lg hover:border-[#007BFF] hover:bg-[#007BFF]/10 transition-all"
           >
             Ver Paquetes
           </Link>
