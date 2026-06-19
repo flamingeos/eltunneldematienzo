@@ -135,8 +135,8 @@ export default function Hero() {
           <Image
             src="/logo/el tunnel logo.png"
             alt="El Túnel de Matienzo"
-            width={220}
-            height={220}
+            width={320}
+            height={320}
             className="object-contain"
             priority
           />
