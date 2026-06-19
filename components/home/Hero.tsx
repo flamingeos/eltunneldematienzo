@@ -167,153 +167,174 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Animated orbital element */}
+        {/* Showroom car display */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.45, ease: "easeOut" }}
-          className="mt-16 flex justify-center"
+          className="mt-14 mx-auto max-w-3xl px-4"
         >
-          <div className="relative flex items-center justify-center" style={{ width: 300, height: 300 }}>
-            {/* Ambient glow */}
-            <div className="absolute inset-0 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(0,123,255,0.15) 0%, transparent 70%)" }} />
+          <svg viewBox="0 0 700 230" className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              {/* Body gradient — top highlight to deep blue */}
+              <linearGradient id="bdGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%"   stopColor="#00AFFF" stopOpacity="0.95" />
+                <stop offset="45%"  stopColor="#007BFF" stopOpacity="0.9"  />
+                <stop offset="100%" stopColor="#003FAA" stopOpacity="0.85" />
+              </linearGradient>
+              {/* Glass gradient */}
+              <linearGradient id="glGrad" x1="15%" y1="0%" x2="55%" y2="100%">
+                <stop offset="0%"   stopColor="#00D4FF" stopOpacity="0.5"  />
+                <stop offset="60%"  stopColor="#007BFF" stopOpacity="0.18" />
+                <stop offset="100%" stopColor="#004CC7" stopOpacity="0.08" />
+              </linearGradient>
+              {/* Rim dark fill */}
+              <radialGradient id="rmGrad" cx="50%" cy="38%" r="55%">
+                <stop offset="0%"   stopColor="#1a2540" />
+                <stop offset="100%" stopColor="#050505" />
+              </radialGradient>
+              {/* Shine sweep gradient */}
+              <linearGradient id="shGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stopColor="white" stopOpacity="0"    />
+                <stop offset="40%"  stopColor="white" stopOpacity="0"    />
+                <stop offset="48%"  stopColor="white" stopOpacity="0.12" />
+                <stop offset="50%"  stopColor="white" stopOpacity="0.32" />
+                <stop offset="52%"  stopColor="white" stopOpacity="0.12" />
+                <stop offset="60%"  stopColor="white" stopOpacity="0"    />
+                <stop offset="100%" stopColor="white" stopOpacity="0"    />
+              </linearGradient>
+              {/* Spotlight from top-center */}
+              <radialGradient id="spotGrad" cx="50%" cy="-10%" r="75%">
+                <stop offset="0%"   stopColor="#007BFF" stopOpacity="0.14" />
+                <stop offset="100%" stopColor="#007BFF" stopOpacity="0"    />
+              </radialGradient>
+              {/* Ground fade */}
+              <linearGradient id="gndGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%"   stopColor="#005ACC" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="#007BFF"  stopOpacity="0"   />
+              </linearGradient>
+              {/* Clip path = car body silhouette */}
+              <clipPath id="carClip">
+                <path d="M 38,215 L 38,200 Q 43,180 62,170 L 98,166 Q 118,162 132,150 Q 146,140 165,134 L 298,128 Q 320,124 338,108 Q 358,86 378,72 L 414,66 Q 444,64 466,73 Q 480,82 494,99 Q 504,114 509,132 L 526,140 L 575,142 Q 598,144 618,152 L 635,158 Q 648,168 654,186 L 656,204 L 656,215 Z" />
+              </clipPath>
+              {/* Glow filter */}
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="softGlow" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur stdDeviation="1.8" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
 
-            {/* Ripple rings */}
-            {([0, 1, 2] as const).map((i) => (
-              <motion.div
-                key={i}
-                className="absolute rounded-full border border-[#007BFF]/50"
-                style={{ width: 260, height: 260 }}
-                animate={{ scale: [0.15, 1.05], opacity: [0.7, 0] }}
-                transition={{ duration: 2.8, repeat: Infinity, delay: i * 0.93, ease: "easeOut" }}
-              />
-            ))}
+            {/* Showroom spotlight */}
+            <rect x="0" y="0" width="700" height="230" fill="url(#spotGrad)" />
 
-            {/* Outer slow-rotating dashed ring */}
-            <motion.div
-              className="absolute rounded-full"
-              style={{ width: 264, height: 264, border: "1px dashed rgba(0,123,255,0.22)" }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+            {/* Ground glow line */}
+            <rect x="30" y="215" width="640" height="15" fill="url(#gndGrad)" />
+            <line x1="30" y1="215" x2="670" y2="215" stroke="#007BFF" strokeWidth="0.5" strokeOpacity="0.35" />
+
+            {/* ── CAR BODY ── */}
+            <path
+              d="M 38,215 L 38,200 Q 43,180 62,170 L 98,166 Q 118,162 132,150 Q 146,140 165,134 L 298,128 Q 320,124 338,108 Q 358,86 378,72 L 414,66 Q 444,64 466,73 Q 480,82 494,99 Q 504,114 509,132 L 526,140 L 575,142 Q 598,144 618,152 L 635,158 Q 648,168 654,186 L 656,204 L 656,215 Z"
+              fill="url(#bdGrad)"
+              filter="url(#glow)"
             />
 
-            {/* Middle rotating ring */}
-            <motion.div
-              className="absolute rounded-full"
-              style={{
-                width: 196, height: 196,
-                border: "2px solid rgba(0,123,255,0.38)",
-                boxShadow: "0 0 20px rgba(0,123,255,0.12), inset 0 0 20px rgba(0,123,255,0.06)",
-              }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 19, repeat: Infinity, ease: "linear" }}
+            {/* ── WINDOW GLASS ── */}
+            <path
+              d="M 334,158 Q 350,130 368,104 Q 382,84 414,67 L 466,74 Q 479,83 492,99 Q 502,112 507,130 L 524,140 L 462,154 L 334,158 Z"
+              fill="url(#glGrad)"
+            />
+            {/* Window top-edge highlight */}
+            <path
+              d="M 336,157 Q 352,128 370,103 Q 384,83 414,66 L 466,73 Q 478,82 491,98 Q 501,111 506,129"
+              stroke="#00CFFF" strokeWidth="1.2" strokeOpacity="0.55" fill="none"
+              filter="url(#softGlow)"
+            />
+            {/* B-pillar */}
+            <line x1="422" y1="66" x2="427" y2="155" stroke="#005ACC" strokeWidth="3" strokeOpacity="0.6" />
+            {/* Interior glints */}
+            <path d="M 354,146 Q 368,118 382,98" stroke="#00AFFF" strokeWidth="0.9" strokeOpacity="0.2" fill="none" />
+            <path d="M 436,67 Q 440,98 440,154" stroke="#00AFFF" strokeWidth="0.9" strokeOpacity="0.15" fill="none" />
+
+            {/* ── BODY DETAILS ── */}
+            {/* Hood character line */}
+            <path d="M 100,182 Q 180,174 260,140 L 298,134" stroke="#00CFFF" strokeWidth="1" strokeOpacity="0.32" fill="none" />
+            {/* Beltline crease */}
+            <path d="M 98,188 Q 240,182 410,180 Q 560,180 640,186" stroke="#00CFFF" strokeWidth="0.9" strokeOpacity="0.25" fill="none" filter="url(#softGlow)" />
+            {/* Door gap */}
+            <line x1="427" y1="155" x2="425" y2="212" stroke="#004BB3" strokeWidth="1.2" strokeOpacity="0.3" />
+
+            {/* ── HEADLIGHT (front LED strip) ── */}
+            <rect x="38" y="188" width="10" height="20" rx="2" fill="#00AFFF" fillOpacity="0.75" filter="url(#glow)" />
+            <rect x="39" y="190" width="8" height="3"  rx="1" fill="white" fillOpacity="1" />
+            <rect x="39" y="195" width="8" height="2.5" rx="1" fill="#007BFF" fillOpacity="0.9" />
+            <rect x="39" y="200" width="8" height="3"  rx="1" fill="#00AFFF" fillOpacity="0.7" />
+            {/* DRL streak */}
+            <path d="M 49,192 Q 82,183 108,180" stroke="#00AFFF" strokeWidth="1.8" strokeOpacity="0.5" fill="none" filter="url(#softGlow)" />
+
+            {/* ── TAILLIGHT (rear LED) ── */}
+            <rect x="638" y="182" width="10" height="26" rx="2" fill="#007BFF" fillOpacity="0.9" filter="url(#glow)" />
+            <rect x="639" y="184" width="8" height="3"   rx="1" fill="#00AFFF" fillOpacity="1" />
+            <rect x="639" y="190" width="8" height="2.5" rx="1" fill="white"   fillOpacity="0.85" />
+            <rect x="639" y="195" width="8" height="3.5" rx="1" fill="#007BFF" fillOpacity="0.9" />
+            {/* Exhaust */}
+            <rect x="646" y="210" width="14" height="4" rx="2" fill="#007BFF" fillOpacity="0.4" filter="url(#softGlow)" />
+
+            {/* ── WHEEL WELLS (dark punch-through) ── */}
+            <circle cx="145" cy="215" r="44" fill="#050505" />
+            <circle cx="485" cy="215" r="44" fill="#050505" />
+
+            {/* ── FRONT WHEEL ── */}
+            <circle cx="145" cy="215" r="40" fill="#0a0a0a" stroke="#007BFF" strokeWidth="2.2" filter="url(#glow)" />
+            <circle cx="145" cy="215" r="28" fill="url(#rmGrad)" stroke="#007BFF" strokeWidth="1.4" strokeOpacity="0.9" />
+            {/* 6 spokes */}
+            <line x1="173" y1="215" x2="153" y2="215" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="159" y1="239" x2="149" y2="223" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="131" y1="239" x2="141" y2="223" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="117" y1="215" x2="137" y2="215" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="131" y1="191" x2="141" y2="207" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="159" y1="191" x2="149" y2="207" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <circle cx="145" cy="215" r="8" fill="#007BFF" fillOpacity="0.95" filter="url(#softGlow)" />
+            <circle cx="145" cy="215" r="4" fill="#050505" />
+            {/* Arch highlight */}
+            <path d="M 105,215 A 40,40 0 0 1 185,215" stroke="#00AFFF" strokeWidth="1.8" strokeOpacity="0.45" fill="none" filter="url(#softGlow)" />
+
+            {/* ── REAR WHEEL ── */}
+            <circle cx="485" cy="215" r="40" fill="#0a0a0a" stroke="#007BFF" strokeWidth="2.2" filter="url(#glow)" />
+            <circle cx="485" cy="215" r="28" fill="url(#rmGrad)" stroke="#007BFF" strokeWidth="1.4" strokeOpacity="0.9" />
+            {/* 6 spokes */}
+            <line x1="513" y1="215" x2="493" y2="215" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="499" y1="239" x2="489" y2="223" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="471" y1="239" x2="481" y2="223" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="457" y1="215" x2="477" y2="215" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="471" y1="191" x2="481" y2="207" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <line x1="499" y1="191" x2="489" y2="207" stroke="#007BFF" strokeWidth="3" strokeOpacity="0.9" filter="url(#softGlow)" />
+            <circle cx="485" cy="215" r="8" fill="#007BFF" fillOpacity="0.95" filter="url(#softGlow)" />
+            <circle cx="485" cy="215" r="4" fill="#050505" />
+            {/* Arch highlight */}
+            <path d="M 445,215 A 40,40 0 0 1 525,215" stroke="#00AFFF" strokeWidth="1.8" strokeOpacity="0.45" fill="none" filter="url(#softGlow)" />
+
+            {/* ── FLOOR REFLECTION (faint mirror below car) ── */}
+            <g transform="scale(1,-1) translate(0,-430)" opacity="0.09">
+              <path d="M 38,215 L 38,200 Q 43,180 62,170 L 98,166 Q 118,162 132,150 Q 146,140 165,134 L 298,128 Q 320,124 338,108 Q 358,86 378,72 L 414,66 Q 444,64 466,73 Q 480,82 494,99 Q 504,114 509,132 L 526,140 L 575,142 Q 598,144 618,152 L 635,158 Q 648,168 654,186 L 656,204 L 656,215 Z" fill="url(#bdGrad)" />
+            </g>
+
+            {/* ── ANIMATED SHINE SWEEP ── */}
+            <motion.rect
+              x={-130} y={0} width={130} height={230}
+              fill="url(#shGrad)"
+              clipPath="url(#carClip)"
+              animate={{ x: [-130, 830] }}
+              transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 3.8, ease: "easeInOut" }}
             />
 
-            {/* 6 orbital dots on middle ring */}
-            {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-              <motion.div
-                key={i}
-                className="absolute inset-0"
-                initial={{ rotate: angle }}
-                animate={{ rotate: angle - 360 }}
-                transition={{ duration: 19, repeat: Infinity, ease: "linear" }}
-              >
-                <div
-                  className="absolute rounded-full"
-                  style={{
-                    width: i % 2 === 0 ? 8 : 5,
-                    height: i % 2 === 0 ? 8 : 5,
-                    top: "50%",
-                    left: "calc(50% + 98px)",
-                    transform: "translate(-50%, -50%)",
-                    background: i % 2 === 0 ? "#007BFF" : "#00AFFF",
-                    boxShadow: `0 0 ${i % 2 === 0 ? 12 : 8}px ${i % 2 === 0 ? "rgba(0,123,255,0.9)" : "rgba(0,175,255,0.9)"}`,
-                  }}
-                />
-              </motion.div>
-            ))}
-
-            {/* Inner fast ring */}
-            <motion.div
-              className="absolute rounded-full"
-              style={{
-                width: 136, height: 136,
-                border: "1.5px dashed rgba(0,175,255,0.4)",
-              }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 11, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* 4 orbital dots on inner ring */}
-            {[0, 90, 180, 270].map((angle, i) => (
-              <motion.div
-                key={i}
-                className="absolute inset-0"
-                initial={{ rotate: angle }}
-                animate={{ rotate: angle + 360 }}
-                transition={{ duration: 11, repeat: Infinity, ease: "linear" }}
-              >
-                <div
-                  className="absolute rounded-full"
-                  style={{
-                    width: 5,
-                    height: 5,
-                    top: "50%",
-                    left: "calc(50% + 68px)",
-                    transform: "translate(-50%, -50%)",
-                    background: "#00AFFF",
-                    boxShadow: "0 0 8px rgba(0,175,255,0.95)",
-                  }}
-                />
-              </motion.div>
-            ))}
-
-            {/* Central pulsing orb */}
-            <motion.div
-              className="absolute rounded-full"
-              style={{
-                width: 100, height: 100,
-                background: "radial-gradient(circle, rgba(0,123,255,0.28) 0%, rgba(0,123,255,0.06) 60%, transparent 100%)",
-              }}
-              animate={{ scale: [1, 1.18, 1], opacity: [0.75, 1, 0.75] }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-            />
-
-            {/* Center icon badge */}
-            <motion.div
-              animate={{ scale: [1, 1.07, 1] }}
-              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 flex items-center justify-center rounded-2xl"
-              style={{
-                width: 68, height: 68,
-                background: "rgba(0,123,255,0.15)",
-                border: "1px solid rgba(0,123,255,0.45)",
-                boxShadow: "0 0 35px rgba(0,123,255,0.4), inset 0 0 20px rgba(0,123,255,0.1)",
-              }}
-            >
-              <Sparkles size={32} className="text-[#00AFFF]" />
-            </motion.div>
-
-            {/* Floating sparkle particles */}
-            {[
-              { x: -118, y: -62, delay: 0, s: 3 },
-              { x: 92, y: -96, delay: 0.7, s: 4 },
-              { x: 128, y: 32, delay: 1.4, s: 3 },
-              { x: -102, y: 72, delay: 2.1, s: 4 },
-              { x: 14, y: 122, delay: 0.35, s: 3 },
-              { x: -38, y: -126, delay: 1.05, s: 3 },
-              { x: 76, y: 108, delay: 1.75, s: 4 },
-              { x: -126, y: -8, delay: 2.45, s: 3 },
-            ].map((sp, i) => (
-              <motion.div
-                key={i}
-                className="absolute top-1/2 left-1/2 rounded-full bg-[#00AFFF]"
-                style={{ width: sp.s, height: sp.s, marginLeft: sp.x, marginTop: sp.y }}
-                animate={{ opacity: [0, 1, 0], scale: [0.3, 1, 0.3] }}
-                transition={{ duration: 2.6, repeat: Infinity, delay: sp.delay, ease: "easeInOut" }}
-              />
-            ))}
-          </div>
+            {/* Wheel puddle glow */}
+            <ellipse cx="145" cy="218" rx="42" ry="6" fill="#007BFF" fillOpacity="0.1" />
+            <ellipse cx="485" cy="218" rx="42" ry="6" fill="#007BFF" fillOpacity="0.1" />
+          </svg>
         </motion.div>
 
       </div>
