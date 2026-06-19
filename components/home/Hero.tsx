@@ -162,26 +162,34 @@ export default function Hero() {
             @keyframes matienzo-glow {
               0%, 100% {
                 text-shadow:
-                  0 4px 20px rgba(0,0,0,1),
-                  0 2px 4px rgba(0,0,0,1),
-                  0 0 20px rgba(0,123,255,0.4),
-                  0 0 40px rgba(0,123,255,0.2);
+                  0 0 8px  rgba(100,210,255,0.9),
+                  0 0 20px rgba(0,175,255,0.85),
+                  0 0 45px rgba(0,140,255,0.65),
+                  0 0 80px rgba(0,110,255,0.4),
+                  0 0 120px rgba(0,80,255,0.2),
+                  0 4px 24px rgba(0,0,0,1);
+                filter: brightness(1.05);
               }
               50% {
                 text-shadow:
-                  0 4px 20px rgba(0,0,0,1),
-                  0 2px 4px rgba(0,0,0,1),
-                  0 0 40px rgba(0,150,255,0.9),
-                  0 0 80px rgba(0,123,255,0.6),
-                  0 0 120px rgba(0,100,255,0.3);
+                  0 0 12px rgba(180,235,255,1),
+                  0 0 30px rgba(0,210,255,1),
+                  0 0 60px rgba(0,175,255,0.9),
+                  0 0 100px rgba(0,140,255,0.7),
+                  0 0 160px rgba(0,100,255,0.45),
+                  0 0 220px rgba(0,70,255,0.2),
+                  0 4px 24px rgba(0,0,0,1);
+                filter: brightness(1.22);
               }
             }
           `}</style>
           <span
             style={{
-              color: "#ffffff",
-              WebkitTextStroke: "2px rgba(0,123,255,0.85)",
+              color: "#7DD8FF",
+              WebkitTextStroke: "1px rgba(120,220,255,0.6)",
               animation: "matienzo-glow 3s ease-in-out infinite",
+              display: "inline-block",
+              letterSpacing: "0.12em",
             }}
           >
             MATIENZO
