@@ -12,6 +12,10 @@ const SRC =
 const FADE_LEAD = 1.8;
 const FADE_DUR  = 1.8;
 
+// Shared text-shadow that carves text above any video frame
+const CARVED =
+  "0 2px 4px rgba(0,0,0,1), 0 4px 16px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,0.95), 0 0 80px rgba(0,0,0,0.7)";
+
 export default function Hero() {
   const refA = useRef<HTMLVideoElement>(null);
   const refB = useRef<HTMLVideoElement>(null);
@@ -101,159 +105,130 @@ export default function Hero() {
         </video>
       </div>
 
-      {/* Dark scrim */}
-      <div className="absolute inset-0 bg-[#050505]/50" style={{ zIndex: 1 }} />
+      {/* Dark scrim — enough to guarantee contrast without killing the video */}
+      <div className="absolute inset-0 bg-[#050505]/45" style={{ zIndex: 1 }} />
 
-      {/* Ambient blue glow behind content card */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 2,
-          background:
-            "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(0,123,255,0.08) 0%, transparent 70%)",
-        }}
-      />
+      {/* ── CONTENT — pure text, zero containers ── */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-10 text-center pt-16 pb-12 flex flex-col items-center gap-0">
 
-      {/* ── CONTENT ── */}
-      <div
-        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center pt-16 pb-12 min-h-screen"
-      >
+        {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-2xl mx-auto text-center"
+          transition={{ duration: 0.55 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#007BFF]/30 bg-[#007BFF]/10 text-[#00AFFF] text-xs font-semibold uppercase tracking-[0.18em] mb-8"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#007BFF]/30 bg-[#007BFF]/10 text-[#00AFFF] text-xs font-semibold uppercase tracking-[0.18em] mb-7"
-          >
-            <span>🏆</span>
-            El Centro de Detailing #1 de Puerto Rico
-          </motion.div>
-
-          {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="flex justify-center mb-6"
-          >
-            <div
-              className="relative"
-              style={{
-                filter: "drop-shadow(0 0 18px rgba(0,123,255,0.45)) drop-shadow(0 0 6px rgba(0,180,255,0.25))",
-              }}
-            >
-              <Image
-                src="/logo/el tunnel logo.png"
-                alt="El Túnel de Matienzo"
-                width={130}
-                height={130}
-                className="object-contain"
-              />
-            </div>
-          </motion.div>
-
-          {/* Primary headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="font-black text-white uppercase mb-2 leading-none"
-            style={{
-              fontSize: "clamp(1.9rem, 5.5vw, 3.8rem)",
-              letterSpacing: "0.12em",
-              textShadow: "0 0 40px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,1), 0 0 80px rgba(0,0,0,0.9)",
-            }}
-          >
-            EL TÚNEL DE{" "}
-            <span
-              className="text-transparent bg-clip-text"
-              style={{ backgroundImage: "linear-gradient(135deg, #4DA6FF, #007BFF, #00AFFF)" }}
-            >
-              MATIENZO
-            </span>
-          </motion.h1>
-
-          {/* Divider line */}
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="mx-auto my-5"
-            style={{
-              width: "60px",
-              height: "1.5px",
-              background: "linear-gradient(to right, transparent, #007BFF, #00AFFF, transparent)",
-            }}
-          />
-
-          {/* Secondary headline */}
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-gray-200 font-semibold mb-5 leading-snug"
-            style={{
-              fontSize: "clamp(1rem, 2.2vw, 1.35rem)",
-              letterSpacing: "0.02em",
-              textShadow: "0 0 30px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1)",
-            }}
-          >
-            La Experiencia Premium en
-            <br />
-            <span
-              className="text-transparent bg-clip-text font-bold"
-              style={{ backgroundImage: "linear-gradient(135deg, #007BFF, #00AFFF)" }}
-            >
-              Auto Detailing de Puerto Rico
-            </span>
-          </motion.p>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.58 }}
-            className="text-gray-400 leading-relaxed mb-8 mx-auto"
-            style={{
-              fontSize: "clamp(0.85rem, 1.5vw, 0.975rem)",
-              maxWidth: "480px",
-              textShadow: "0 0 24px rgba(0,0,0,1), 0 2px 4px rgba(0,0,0,1)",
-            }}
-          >
-            Lavado profesional, detailing, recubrimientos cerámicos, protección de
-            pintura y membresías exclusivas — todo en una experiencia diseñada para
-            mantener tu vehículo en condiciones impecables.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.66 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Link
-              href="/booking"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#007BFF] text-white font-bold rounded-xl text-base hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.6)]"
-            >
-              Reservar Ahora
-              <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center px-7 py-3.5 border border-[#007BFF]/35 text-white font-semibold rounded-xl text-base hover:border-[#007BFF] hover:bg-[#007BFF]/10 transition-all"
-              style={{ backdropFilter: "blur(8px)" }}
-            >
-              Ver Paquetes
-            </Link>
-          </motion.div>
+          🏆&nbsp; El Centro de Detailing #1 de Puerto Rico
         </motion.div>
+
+        {/* Logo — large, prominent brand mark */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mb-7"
+          style={{
+            filter:
+              "drop-shadow(0 0 28px rgba(0,123,255,0.7)) drop-shadow(0 0 8px rgba(0,180,255,0.4)) drop-shadow(0 4px 16px rgba(0,0,0,0.9))",
+          }}
+        >
+          <Image
+            src="/logo/el tunnel logo.png"
+            alt="El Túnel de Matienzo"
+            width={180}
+            height={180}
+            className="object-contain"
+            priority
+          />
+        </motion.div>
+
+        {/* Primary headline — all white, text-stroke for carving */}
+        <motion.h1
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="font-black text-white uppercase leading-none mb-4"
+          style={{
+            fontSize: "clamp(2.4rem, 7vw, 5.5rem)",
+            letterSpacing: "0.1em",
+            WebkitTextStroke: "1.5px rgba(0,0,0,0.7)",
+            textShadow:
+              "0 4px 20px rgba(0,0,0,0.8), 0 0 30px rgba(0,120,255,0.3), 0 2px 4px rgba(0,0,0,1)",
+          }}
+        >
+          EL TÚNEL DE
+          <br />
+          <span style={{ color: "#ffffff" }}>MATIENZO</span>
+        </motion.h1>
+
+        {/* Accent rule */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.55, delay: 0.3 }}
+          style={{
+            width: "72px",
+            height: "2px",
+            background: "linear-gradient(to right, transparent, #007BFF, transparent)",
+            marginBottom: "1.25rem",
+          }}
+        />
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.38 }}
+          className="text-white font-medium leading-snug mb-4"
+          style={{
+            fontSize: "clamp(1rem, 2vw, 1.25rem)",
+            letterSpacing: "0.03em",
+            textShadow: CARVED,
+          }}
+        >
+          La Experiencia Premium en{" "}
+          <span style={{ color: "#007BFF", fontWeight: 700 }}>Auto Detailing</span>{" "}
+          de Puerto Rico
+        </motion.p>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.46 }}
+          className="text-gray-300 leading-relaxed mb-10 max-w-xl"
+          style={{
+            fontSize: "clamp(0.82rem, 1.4vw, 0.95rem)",
+            textShadow: CARVED,
+          }}
+        >
+          Lavado profesional, detailing, recubrimientos cerámicos, protección de
+          pintura y membresías exclusivas — todo en una experiencia diseñada para
+          mantener tu vehículo en condiciones impecables.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.54 }}
+          className="flex flex-col sm:flex-row gap-3 justify-center"
+        >
+          <Link
+            href="/booking"
+            className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#007BFF] text-white font-bold rounded-xl text-base hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.6)]"
+          >
+            Reservar Ahora
+            <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href="/services"
+            className="inline-flex items-center justify-center px-8 py-3.5 border border-white/25 text-white font-semibold rounded-xl text-base hover:border-[#007BFF] hover:bg-white/5 transition-all"
+          >
+            Ver Paquetes
+          </Link>
+        </motion.div>
+
       </div>
     </section>
   );
