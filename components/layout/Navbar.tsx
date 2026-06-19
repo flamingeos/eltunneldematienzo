@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Droplets } from "lucide-react";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "/", label: "Inicio" },
@@ -37,9 +38,13 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-full bg-[#007BFF] flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(0,123,255,0.8)] transition-shadow">
-            <Droplets size={16} className="text-white" />
-          </div>
+          <Image
+            src="/logo/el tunnel logo.png"
+            alt="El Túnel de Matienzo"
+            width={36}
+            height={36}
+            className="object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+          />
           <span className="font-bold text-sm tracking-wider uppercase text-white">
             El Túnel <span className="text-[#007BFF]">de Matienzo</span>
           </span>

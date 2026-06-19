@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Droplets, MapPin, Phone, Mail } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,9 +10,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-[#007BFF] flex items-center justify-center">
-                <Droplets size={16} className="text-white" />
-              </div>
+              <Image
+                src="/logo/el tunnel logo.png"
+                alt="El Túnel de Matienzo"
+                width={32}
+                height={32}
+                className="object-contain opacity-90"
+              />
               <span className="font-bold text-white">
                 El Túnel <span className="text-[#007BFF]">de Matienzo</span>
               </span>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Star, Shield, Award } from "lucide-react";
 import { useEffect, useRef } from "react";
 
@@ -80,6 +81,17 @@ export default function Hero() {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#007BFF]/10 via-transparent to-[#050505]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#007BFF]/5 blur-3xl" />
+
+      {/* Subtle logo watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 2 }}>
+        <Image
+          src="/logo/el tunnel logo.png"
+          alt=""
+          width={420}
+          height={420}
+          className="object-contain opacity-[0.04]"
+        />
+      </div>
 
       <Particles />
 
