@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "El Túnel de Matienzo | Puerto Rico's Premium Auto Detailing",
+  title: "El Tunnel de Matienzo | Puerto Rico's Premium Auto Detailing",
   description:
     "Professional car wash, detailing, ceramic coatings, memberships, and paint protection in Puerto Rico. Serving Trujillo Alto and surrounding areas.",
   keywords: [
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     "Ceramic Coating Puerto Rico",
     "Car Detailing Trujillo Alto",
     "Auto Spa Puerto Rico",
-    "El Túnel de Matienzo",
+    "El Tunnel de Matienzo",
   ],
   openGraph: {
-    title: "El Túnel de Matienzo | Premium Auto Detailing",
+    title: "El Tunnel de Matienzo | Premium Auto Detailing",
     description: "Puerto Rico's #1 luxury auto detailing experience.",
     type: "website",
     locale: "es_PR",

@@ -35,7 +35,7 @@ export default function AdminSidebar() {
             <Droplets size={15} className="text-white" />
           </div>
           <div>
-            <p className="text-white font-bold text-xs">El Túnel de Matienzo</p>
+            <p className="text-white font-bold text-xs">El Tunnel de Matienzo</p>
             <p className="text-gray-600 text-xs">Admin Panel</p>
           </div>
         </div>

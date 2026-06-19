@@ -12,13 +12,13 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <Image
                 src="/logo/el tunnel logo.png"
-                alt="El Túnel de Matienzo"
+                alt="El Tunnel de Matienzo"
                 width={32}
                 height={32}
                 className="object-contain opacity-90"
               />
               <span className="font-bold text-white">
-                El Túnel <span className="text-[#007BFF]">de Matienzo</span>
+                El Tunnel <span className="text-[#007BFF]">de Matienzo</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
@@ -81,7 +81,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-[#007BFF]/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-600">
-          <p>© 2025 El Túnel de Matienzo. Todos los derechos reservados.</p>
+          <p>© 2025 El Tunnel de Matienzo. Todos los derechos reservados.</p>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-gray-400 transition-colors">Privacidad</Link>
             <Link href="#" className="hover:text-gray-400 transition-colors">Términos</Link>

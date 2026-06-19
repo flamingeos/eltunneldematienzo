@@ -135,8 +135,8 @@ export default function Hero() {
           <Image
             src="/logo/el tunnel logo.png"
             alt="El Túnel de Matienzo"
-            width={180}
-            height={180}
+            width={220}
+            height={220}
             className="object-contain"
             priority
           />
@@ -151,12 +151,12 @@ export default function Hero() {
           style={{
             fontSize: "clamp(2.4rem, 7vw, 5.5rem)",
             letterSpacing: "0.1em",
-            WebkitTextStroke: "1.5px rgba(0,0,0,0.7)",
+            WebkitTextStroke: "2px rgba(0,123,255,0.85)",
             textShadow:
-              "0 4px 20px rgba(0,0,0,0.8), 0 0 30px rgba(0,120,255,0.3), 0 2px 4px rgba(0,0,0,1)",
+              "0 4px 20px rgba(0,0,0,1), 0 0 40px rgba(0,120,255,0.45), 0 2px 4px rgba(0,0,0,1), 0 0 80px rgba(0,0,0,0.9)",
           }}
         >
-          EL TÚNEL DE
+          EL TUNNEL DE
           <br />
           <span style={{ color: "#ffffff" }}>MATIENZO</span>
         </motion.h1>

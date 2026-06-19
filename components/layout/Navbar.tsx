@@ -40,13 +40,13 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2 group">
           <Image
             src="/logo/el tunnel logo.png"
-            alt="El Túnel de Matienzo"
+            alt="El Tunnel de Matienzo"
             width={36}
             height={36}
             className="object-contain opacity-90 group-hover:opacity-100 transition-opacity"
           />
           <span className="font-bold text-sm tracking-wider uppercase text-white">
-            El Túnel <span className="text-[#007BFF]">de Matienzo</span>
+            El Tunnel <span className="text-[#007BFF]">de Matienzo</span>
           </span>
         </Link>
 

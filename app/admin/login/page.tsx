@@ -47,7 +47,7 @@ export default function AdminLogin() {
             <Droplets size={28} className="text-[#007BFF]" />
           </div>
           <h1 className="text-white font-black text-2xl">Admin Panel</h1>
-          <p className="text-gray-500 text-sm mt-1">El Túnel de Matienzo</p>
+          <p className="text-gray-500 text-sm mt-1">El Tunnel de Matienzo</p>
         </div>
 
         <form
