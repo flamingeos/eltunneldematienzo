@@ -12,9 +12,24 @@ const SRC =
 const FADE_LEAD = 1.8;
 const FADE_DUR  = 1.8;
 
-// Shared text-shadow that carves text above any video frame
 const CARVED =
   "0 2px 4px rgba(0,0,0,1), 0 4px 16px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,0.95), 0 0 80px rgba(0,0,0,0.7)";
+
+// Mask applied to the video container on both mobile and desktop.
+// On mobile (16:9 box) it creates a soft vignette + fades the bottom into dark.
+// On desktop (absolute inset) it creates the full 4-edge vignette.
+const VIDEO_MASK = {
+  WebkitMaskImage: `
+    linear-gradient(to right,  transparent 0%, black 8%, black 92%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 6%, black 78%, transparent 100%)
+  `,
+  WebkitMaskComposite: "source-in",
+  maskImage: `
+    linear-gradient(to right,  transparent 0%, black 8%, black 92%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 6%, black 78%, transparent 100%)
+  `,
+  maskComposite: "intersect",
+} as React.CSSProperties;
 
 export default function Hero() {
   const refA = useRef<HTMLVideoElement>(null);
@@ -62,24 +77,30 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]">
+    /*
+     * Layout strategy:
+     *   MOBILE  – flex-col: video at top (natural 16:9, no zoom), content stacked below.
+     *   DESKTOP – video switches to absolute inset-0 (out of flex flow), content fills
+     *             the remaining full-height space and centers itself → same look as before.
+     */
+    <section className="relative bg-[#050505] flex flex-col min-h-screen">
 
-      {/* ── VIDEO BACKGROUND ── */}
+      {/* ── VIDEO CONTAINER ──────────────────────────────────────────────────────
+          Mobile  : relative, w-full, aspect-video, pushed below fixed navbar (mt-16).
+          Desktop : absolute inset-0 — removes itself from flex flow, full-screen bg.
+      ────────────────────────────────────────────────────────────────────────── */}
       <div
-        className="absolute inset-0"
-        style={{
-          WebkitMaskImage: `
-            linear-gradient(to right,  transparent 0%, black 12%, black 88%, transparent 100%),
-            linear-gradient(to bottom, transparent 0%, black 10%, black 80%, transparent 100%)
-          `,
-          WebkitMaskComposite: "source-in",
-          maskImage: `
-            linear-gradient(to right,  transparent 0%, black 12%, black 88%, transparent 100%),
-            linear-gradient(to bottom, transparent 0%, black 10%, black 80%, transparent 100%)
-          `,
-          maskComposite: "intersect",
-          zIndex: 0,
-        }}
+        className={[
+          // Mobile base
+          "relative w-full shrink-0",
+          "mt-16",           // clear fixed navbar (64 px)
+          "aspect-video",    // ← KEY: natural 16:9 ratio — no zoom on mobile
+          // Desktop overrides
+          "md:absolute md:inset-0",
+          "md:aspect-auto",  // let absolute inset-0 control dimensions
+          "md:mt-0",
+        ].join(" ")}
+        style={{ zIndex: 0, ...VIDEO_MASK }}
       >
         <video
           ref={refA}
@@ -105,28 +126,49 @@ export default function Hero() {
         </video>
       </div>
 
-      {/* Dark scrim — enough to guarantee contrast without killing the video */}
-      <div className="absolute inset-0 bg-[#050505]/45" style={{ zIndex: 1 }} />
+      {/* ── MOBILE ONLY: gradient bridge video → dark bg ─────────────────────── */}
+      <div
+        className="md:hidden shrink-0 pointer-events-none"
+        style={{
+          marginTop: "-3rem",   // overlap the last 48 px of video
+          height: "4rem",       // 64 px tall gradient
+          background: "linear-gradient(to bottom, transparent 0%, #050505 100%)",
+          zIndex: 2,
+          position: "relative",
+        }}
+      />
 
-      {/* ── CONTENT — pure text, zero containers ── */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-10 text-center pt-20 pb-10 sm:pt-16 sm:pb-12 flex flex-col items-center gap-0">
+      {/* ── DESKTOP ONLY: dark scrim over video ──────────────────────────────── */}
+      <div
+        className="hidden md:block absolute inset-0 bg-[#050505]/45"
+        style={{ zIndex: 1 }}
+      />
 
+      {/* ── CONTENT ──────────────────────────────────────────────────────────────
+          flex-1 so it fills remaining space in the flex-col section.
+          On mobile: natural top-down stacking with modest padding.
+          On desktop: justify-center to vertically center in full viewport.
+      ────────────────────────────────────────────────────────────────────────── */}
+      <div
+        className="relative flex-1 flex flex-col items-center justify-center text-center px-5 sm:px-10 pb-10 md:py-20"
+        style={{ zIndex: 10 }}
+      >
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 rounded-full border border-[#007BFF]/30 bg-[#007BFF]/10 text-[#00AFFF] text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] sm:tracking-[0.18em] mb-5 sm:mb-8"
+          className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 rounded-full border border-[#007BFF]/30 bg-[#007BFF]/10 text-[#00AFFF] text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] sm:tracking-[0.18em] mb-4 sm:mb-6 md:mb-8"
         >
           🏆&nbsp; El Centro de Detailing #1 de Puerto Rico
         </motion.div>
 
-        {/* Logo — large, prominent brand mark */}
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="mb-5 sm:mb-7"
+          className="mb-4 sm:mb-6 md:mb-7"
           style={{
             filter:
               "drop-shadow(0 0 28px rgba(0,123,255,0.7)) drop-shadow(0 0 8px rgba(0,180,255,0.4)) drop-shadow(0 4px 16px rgba(0,0,0,0.9))",
@@ -137,19 +179,19 @@ export default function Hero() {
             alt="El Túnel de Matienzo"
             width={320}
             height={320}
-            className="object-contain w-36 h-36 sm:w-56 sm:h-56 md:w-80 md:h-80"
+            className="object-contain w-20 h-20 sm:w-44 sm:h-44 md:w-72 md:h-72 lg:w-80 lg:h-80"
             priority
           />
         </motion.div>
 
-        {/* Primary headline — all white, text-stroke for carving */}
+        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="font-black text-white uppercase leading-none mb-4"
+          className="font-black text-white uppercase leading-none mb-3 sm:mb-4"
           style={{
-            fontSize: "clamp(2.4rem, 7vw, 5.5rem)",
+            fontSize: "clamp(2rem, 7vw, 5.5rem)",
             letterSpacing: "0.1em",
             WebkitTextStroke: "2px rgba(0,123,255,0.85)",
             textShadow:
@@ -203,7 +245,7 @@ export default function Hero() {
             width: "72px",
             height: "2px",
             background: "linear-gradient(to right, transparent, #007BFF, transparent)",
-            marginBottom: "1.25rem",
+            marginBottom: "1rem",
           }}
         />
 
@@ -212,9 +254,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.38 }}
-          className="text-white font-medium leading-snug mb-4"
+          className="text-white font-medium leading-snug mb-3 sm:mb-4"
           style={{
-            fontSize: "clamp(1rem, 2vw, 1.25rem)",
+            fontSize: "clamp(0.9rem, 2vw, 1.25rem)",
             letterSpacing: "0.03em",
             textShadow: CARVED,
           }}
@@ -224,12 +266,12 @@ export default function Hero() {
           de Puerto Rico
         </motion.p>
 
-        {/* Description */}
+        {/* Description — hidden on smallest screens to keep content tight */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.46 }}
-          className="text-gray-300 leading-relaxed mb-7 sm:mb-10 max-w-xl"
+          className="hidden sm:block text-gray-300 leading-relaxed mb-8 sm:mb-10 max-w-xl"
           style={{
             fontSize: "clamp(0.82rem, 1.4vw, 0.95rem)",
             textShadow: CARVED,
@@ -245,7 +287,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.54 }}
-          className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto"
+          className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto mt-2 sm:mt-0"
         >
           <Link
             href="/booking"
@@ -261,8 +303,8 @@ export default function Hero() {
             Ver Paquetes
           </Link>
         </motion.div>
-
       </div>
+
     </section>
   );
 }
