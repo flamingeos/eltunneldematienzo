@@ -32,9 +32,9 @@ const stats = [
 
 export default function StatsBar() {
   return (
-    <section className="bg-[#050505] border-y border-[#007BFF]/20 py-10">
+    <section className="bg-[#050505] border-y border-[#007BFF]/20 py-8 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}

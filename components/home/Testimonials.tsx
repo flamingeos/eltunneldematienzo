@@ -36,18 +36,18 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-[#050505]">
+    <section className="py-16 md:py-24 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-10 md:mb-14"
         >
           <p className="text-[#007BFF] text-sm font-semibold uppercase tracking-widest mb-3">
             Reseñas
           </p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white mb-4">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
             Lo que Dicen Nuestros{" "}
             <span className="text-[#007BFF]">Clientes</span>
           </h2>

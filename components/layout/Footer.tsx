@@ -4,11 +4,11 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#050505] border-t border-[#007BFF]/20 pt-16 pb-8">
+    <footer className="bg-[#050505] border-t border-[#007BFF]/20 pt-12 pb-8 md:pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-10 md:mb-12">
           {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Image
                 src="/logo/el tunnel logo.png"

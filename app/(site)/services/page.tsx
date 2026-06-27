@@ -32,23 +32,23 @@ const categories = ["Todos", "Exterior", "Interior", "Protección", "Corrección
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-24 pb-20">
+    <div className="min-h-screen bg-[#050505] pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <p className="text-[#007BFF] text-sm font-semibold uppercase tracking-widest mb-3">
             Servicios
           </p>
-          <h1 className="text-4xl sm:text-6xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4">
             Todos Nuestros
             <br />
             <span className="text-[#007BFF]">Servicios Premium</span>
           </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             Desde un lavado exterior hasta ceramic coating de 5 años. Cada
             servicio realizado con los mejores productos y técnicas del mercado.
           </p>
@@ -91,11 +91,11 @@ export default function ServicesPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-10 md:mt-16"
         >
           <Link
             href="/booking"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-[#007BFF] text-white font-bold rounded-xl text-lg hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.5)]"
+            className="inline-flex items-center gap-2 px-8 sm:px-10 py-4 bg-[#007BFF] text-white font-bold rounded-xl text-base sm:text-lg hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.5)]"
           >
             Reservar Ahora <ChevronRight size={20} />
           </Link>

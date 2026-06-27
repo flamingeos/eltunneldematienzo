@@ -113,11 +113,11 @@ export default function VideoShowcase() {
           transition={{ duration: 0.8 }}
           className="text-center px-4"
         >
-          <p className="text-[#00AFFF] text-[11px] font-bold uppercase tracking-[0.32em] mb-4 drop-shadow-lg">
+          <p className="text-[#00AFFF] text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.28em] sm:tracking-[0.32em] mb-2 sm:mb-4 drop-shadow-lg">
             Experiencia en Acción
           </p>
           <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.05]"
+            className="text-2xl sm:text-4xl lg:text-6xl font-black text-white leading-[1.05]"
             style={{ textShadow: "0 2px 32px rgba(0,0,0,0.9)" }}
           >
             El Arte del{" "}

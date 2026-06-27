@@ -75,10 +75,11 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2 -mr-2 rounded-lg hover:bg-white/5 transition-colors"
           onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
@@ -89,28 +90,30 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#050505]/95 backdrop-blur-lg border-b border-[#007BFF]/20"
+            className="md:hidden bg-[#050505]/98 backdrop-blur-xl border-b border-[#007BFF]/20"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
+            <div className="px-6 py-3 flex flex-col">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`text-sm font-medium ${
-                    pathname === link.href ? "text-[#007BFF]" : "text-gray-300"
+                  className={`py-3.5 text-base font-medium border-b border-white/5 last:border-0 transition-colors ${
+                    pathname === link.href ? "text-[#007BFF]" : "text-gray-300 hover:text-white"
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Link
-                href="/booking"
-                onClick={() => setOpen(false)}
-                className="px-4 py-2 bg-[#007BFF] text-white text-sm font-semibold rounded-lg text-center"
-              >
-                Reservar Ahora
-              </Link>
+              <div className="pt-4 pb-2">
+                <Link
+                  href="/booking"
+                  onClick={() => setOpen(false)}
+                  className="block py-3.5 bg-[#007BFF] text-white text-base font-bold rounded-xl text-center hover:bg-[#0066dd] transition-colors"
+                >
+                  Reservar Ahora
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

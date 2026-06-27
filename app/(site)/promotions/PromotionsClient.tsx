@@ -22,21 +22,21 @@ export default function PromotionsClient({ promotions }: { promotions: Promotion
   const display = promotions.length > 0 ? promotions : defaultPromos;
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-24 pb-20">
+    <div className="min-h-screen bg-[#050505] pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <p className="text-[#007BFF] text-sm font-semibold uppercase tracking-widest mb-3">
             Promociones
           </p>
-          <h1 className="text-4xl sm:text-6xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4">
             Ofertas{" "}
             <span className="text-[#007BFF]">Activas</span>
           </h1>
-          <p className="text-gray-400 max-w-xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-xl mx-auto text-base sm:text-lg">
             Aprovecha nuestras promociones exclusivas y ahorra en cada visita.
           </p>
         </motion.div>

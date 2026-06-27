@@ -36,18 +36,18 @@ const plans = [
 
 export default function MembershipsPreview() {
   return (
-    <section className="py-24 bg-gradient-to-b from-[#050505] to-[#080c14]">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-[#050505] to-[#080c14]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-10 md:mb-14"
         >
           <p className="text-[#007BFF] text-sm font-semibold uppercase tracking-widest mb-3">
             Membresías
           </p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white mb-4">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
             Ahorra Cada Mes
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
@@ -66,7 +66,7 @@ export default function MembershipsPreview() {
               transition={{ delay: i * 0.1 }}
               className={`relative rounded-2xl p-6 border ${plan.color} glass ${
                 plan.popular
-                  ? "shadow-[0_0_40px_rgba(0,123,255,0.3)]"
+                  ? "shadow-[0_0_40px_rgba(0,123,255,0.3)] mt-4 md:mt-0"
                   : ""
               }`}
             >

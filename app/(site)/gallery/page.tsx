@@ -46,34 +46,34 @@ export default function GalleryPage() {
   const lightboxItem = galleryItems.find((g) => g.id === lightboxId);
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-24 pb-20">
+    <div className="min-h-screen bg-[#050505] pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
           <p className="text-[#007BFF] text-sm font-semibold uppercase tracking-widest mb-3">
             Galería
           </p>
-          <h1 className="text-4xl sm:text-6xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4">
             Nuestro{" "}
             <span className="text-[#007BFF]">Trabajo</span>
           </h1>
-          <p className="text-gray-400 max-w-xl mx-auto">
+          <p className="text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
             Cada vehículo es un lienzo. Mira las transformaciones que logramos
             para nuestros clientes.
           </p>
         </motion.div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 justify-center mb-10">
+        <div className="flex flex-wrap gap-2 justify-center mb-7 md:mb-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+              className={`px-4 py-2.5 rounded-full text-sm font-semibold transition-all min-h-[40px] ${
                 active === cat
                   ? "bg-[#007BFF] text-white shadow-[0_0_15px_rgba(0,123,255,0.4)]"
                   : "border border-[#007BFF]/20 text-gray-400 hover:border-[#007BFF]/50 hover:text-white"

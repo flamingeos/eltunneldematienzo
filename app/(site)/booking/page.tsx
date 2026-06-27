@@ -101,8 +101,8 @@ function formatDateDisplay(ds: string) {
 
 function StepIndicator({ current }: { current: number }) {
   return (
-    <div className="flex items-center justify-center mb-8 overflow-x-auto">
-      <div className="flex items-center min-w-max">
+    <div className="flex items-center justify-center mb-6 sm:mb-8">
+      <div className="flex items-center w-full max-w-sm sm:max-w-none sm:min-w-max">
         {STEP_LABELS.map((label, i) => {
           const done = i < current;
           const active = i === current;
@@ -132,9 +132,10 @@ function StepIndicator({ current }: { current: number }) {
               </div>
               {i < STEP_LABELS.length - 1 && (
                 <div
-                  className="h-px mx-1 mb-4 transition-all duration-300"
+                  className="h-px mx-0.5 sm:mx-1 mb-4 flex-1 sm:flex-none transition-all duration-300"
                   style={{
-                    width: "2rem",
+                    minWidth: "0.75rem",
+                    maxWidth: "2rem",
                     background: i < current
                       ? "linear-gradient(90deg, #007BFF, #00AFFF)"
                       : "rgba(255,255,255,0.08)",
@@ -165,7 +166,7 @@ function StepVehicle({ selected, onSelect }: { selected: string; onSelect: (v: s
               onClick={() => onSelect(id)}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
-              className={`relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all text-center ${
+              className={`relative flex flex-col items-center gap-2 sm:gap-3 p-3.5 sm:p-5 rounded-2xl border-2 transition-all text-center ${
                 sel
                   ? "border-[#007BFF] bg-[#007BFF]/10"
                   : "border-white/8 bg-white/[0.025] hover:border-white/20 hover:bg-white/[0.04]"
@@ -181,12 +182,13 @@ function StepVehicle({ selected, onSelect }: { selected: string; onSelect: (v: s
                   <Check size={11} className="text-white" />
                 </motion.div>
               )}
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${sel ? "bg-[#007BFF]/20" : "bg-white/5"}`}>
-                <Icon size={24} className={sel ? "text-[#007BFF]" : "text-gray-400"} />
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center ${sel ? "bg-[#007BFF]/20" : "bg-white/5"}`}>
+                <Icon size={20} className={`sm:hidden ${sel ? "text-[#007BFF]" : "text-gray-400"}`} />
+                <Icon size={24} className={`hidden sm:block ${sel ? "text-[#007BFF]" : "text-gray-400"}`} />
               </div>
               <div>
-                <p className={`font-bold text-sm ${sel ? "text-white" : "text-gray-300"}`}>{label}</p>
-                <p className="text-gray-600 text-xs mt-0.5">{desc}</p>
+                <p className={`font-bold text-xs sm:text-sm ${sel ? "text-white" : "text-gray-300"}`}>{label}</p>
+                <p className="text-gray-600 text-[10px] sm:text-xs mt-0.5 leading-tight">{desc}</p>
               </div>
             </motion.button>
           );
@@ -710,18 +712,18 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-24 pb-20">
+    <div className="min-h-screen bg-[#050505] pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-10"
+          className="text-center mb-6 sm:mb-10"
         >
           <p className="text-[#007BFF] text-xs font-bold uppercase tracking-widest mb-2">
             Reservaciones
           </p>
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-3">
             Reserva tu <span className="text-[#007BFF]">Cita</span>
           </h1>
           <p className="text-gray-500 text-sm">Proceso rapido — solo toma 2 minutos</p>

@@ -53,7 +53,7 @@ function SavingsCalculator() {
   const savings = Math.max(0, total - plusPlan);
 
   return (
-    <div className="glass rounded-2xl p-8 border border-[#007BFF]/20 max-w-xl mx-auto mt-16">
+    <div className="glass rounded-2xl p-5 sm:p-8 border border-[#007BFF]/20 max-w-xl mx-auto mt-10 md:mt-16">
       <div className="flex items-center gap-2 mb-6">
         <DollarSign size={22} className="text-[#007BFF]" />
         <h3 className="text-white font-bold text-lg">Calculadora de Ahorro</h3>
@@ -94,23 +94,23 @@ function SavingsCalculator() {
 
 export default function MembershipsPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-24 pb-20">
+    <div className="min-h-screen bg-[#050505] pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <p className="text-[#007BFF] text-sm font-semibold uppercase tracking-widest mb-3">
             Membresías
           </p>
-          <h1 className="text-4xl sm:text-6xl font-black text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-4">
             Planes para
             <br />
             <span className="text-[#007BFF]">Todos los Estilos</span>
           </h1>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             Lavados ilimitados por un precio mensual fijo. Cancela cuando
             quieras.
           </p>
@@ -124,9 +124,9 @@ export default function MembershipsPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`relative rounded-2xl p-8 border glass ${
+              className={`relative rounded-2xl p-6 sm:p-8 border glass ${
                 plan.popular
-                  ? "border-[#007BFF] shadow-[0_0_50px_rgba(0,123,255,0.25)]"
+                  ? "border-[#007BFF] shadow-[0_0_50px_rgba(0,123,255,0.25)] mt-4 md:mt-0"
                   : "border-[#007BFF]/20"
               }`}
             >

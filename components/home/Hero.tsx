@@ -109,14 +109,14 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[#050505]/45" style={{ zIndex: 1 }} />
 
       {/* ── CONTENT — pure text, zero containers ── */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-10 text-center pt-16 pb-12 flex flex-col items-center gap-0">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-10 text-center pt-20 pb-10 sm:pt-16 sm:pb-12 flex flex-col items-center gap-0">
 
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#007BFF]/30 bg-[#007BFF]/10 text-[#00AFFF] text-xs font-semibold uppercase tracking-[0.18em] mb-8"
+          className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 rounded-full border border-[#007BFF]/30 bg-[#007BFF]/10 text-[#00AFFF] text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] sm:tracking-[0.18em] mb-5 sm:mb-8"
         >
           🏆&nbsp; El Centro de Detailing #1 de Puerto Rico
         </motion.div>
@@ -126,7 +126,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="mb-7"
+          className="mb-5 sm:mb-7"
           style={{
             filter:
               "drop-shadow(0 0 28px rgba(0,123,255,0.7)) drop-shadow(0 0 8px rgba(0,180,255,0.4)) drop-shadow(0 4px 16px rgba(0,0,0,0.9))",
@@ -137,7 +137,7 @@ export default function Hero() {
             alt="El Túnel de Matienzo"
             width={320}
             height={320}
-            className="object-contain"
+            className="object-contain w-36 h-36 sm:w-56 sm:h-56 md:w-80 md:h-80"
             priority
           />
         </motion.div>
@@ -229,7 +229,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.46 }}
-          className="text-gray-300 leading-relaxed mb-10 max-w-xl"
+          className="text-gray-300 leading-relaxed mb-7 sm:mb-10 max-w-xl"
           style={{
             fontSize: "clamp(0.82rem, 1.4vw, 0.95rem)",
             textShadow: CARVED,
@@ -245,18 +245,18 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.54 }}
-          className="flex flex-col sm:flex-row gap-3 justify-center"
+          className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto"
         >
           <Link
             href="/booking"
-            className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#007BFF] text-white font-bold rounded-xl text-base hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.6)]"
+            className="group inline-flex items-center justify-center gap-2 px-8 py-4 sm:py-3.5 bg-[#007BFF] text-white font-bold rounded-xl text-base hover:bg-[#0066dd] transition-all hover:shadow-[0_0_30px_rgba(0,123,255,0.6)]"
           >
             Reservar Ahora
             <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
             href="/services"
-            className="inline-flex items-center justify-center px-8 py-3.5 border border-white/25 text-white font-semibold rounded-xl text-base hover:border-[#007BFF] hover:bg-white/5 transition-all"
+            className="inline-flex items-center justify-center px-8 py-4 sm:py-3.5 border border-white/25 text-white font-semibold rounded-xl text-base hover:border-[#007BFF] hover:bg-white/5 transition-all"
           >
             Ver Paquetes
           </Link>
